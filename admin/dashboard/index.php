@@ -113,7 +113,7 @@ $total_students = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - SMKN 40 Jakarta</title>
+    <title>Dashboard Admin - Keamanan Informasi K2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -215,9 +215,9 @@ $total_students = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
     <aside id="sidebar" class="fixed top-0 left-0 h-screen w-64 glass-effect border-r border-purple-900/30 z-50 sidebar-transition -translate-x-full lg:translate-x-0">
         <div class="flex items-center justify-between p-4 lg:p-6 border-b border-purple-900/30">
             <div class="flex items-center gap-3">
-                <img src="../../assets/default/logo-smk40.png" alt="SMKN 40" class="h-8 lg:h-10 w-auto">
+                <img src="../../assets/default/logo-smk40.png" alt="Keamanan Informasi K2" class="h-8 lg:h-10 w-auto">
                 <div>
-                    <h1 class="font-semibold text-sm lg:text-base">SMKN 40</h1>
+                    <h1 class="font-semibold text-sm lg:text-base">Keamanan Informasi K2</h1>
                     <p class="text-xs text-gray-400">Sistem Absensi</p>
                 </div>
             </div>
@@ -238,7 +238,7 @@ $total_students = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
             </a>
             <a href="../siswa/" class="flex items-center gap-3 text-gray-400 p-3 rounded-lg hover:bg-purple-500/10 transition-colors">
                 <i class="fas fa-users"></i>
-                <span>Data Siswa</span>
+                <span>Data Mahasiswa</span>
             </a>
             <a href="../laporan/" class="flex items-center gap-3 text-gray-400 p-3 rounded-lg hover:bg-purple-500/10 transition-colors">
                 <i class="fas fa-file-alt"></i>
@@ -283,7 +283,7 @@ $total_students = $conn->query($sql)->fetch(PDO::FETCH_ASSOC)['total'];
                 <button onclick="toggleSidebar()" class="text-white p-2 -ml-2 rounded-lg hover:bg-gray-800/60" aria-label="Menu">
                     <i class="fas fa-bars text-lg"></i>
                 </button>
-                <img src="../../assets/default/logo-smk40.png" alt="SMKN 40" class="h-8 w-auto">
+                <img src="../../assets/default/logo-smk40.png" alt="Keamanan Informasi K2" class="h-8 w-auto">
             </div>
             <div class="flex items-center gap-3">
                 <span id="current-time-mobile" class="text-sm font-medium hidden sm:block"></span>
