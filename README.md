@@ -1,145 +1,83 @@
-# 📊 Sistem Informasi Absensi Siswa
+# Sistem Absensi Keamanan Informasi K2
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Aplikasi web untuk mencatat kehadiran mahasiswa kelas Keamanan Informasi K2. Dibangun menggunakan PHP dan MySQL dengan tampilan bertema pendidikan (putih, biru navy, dan emas). Aplikasi ini dilengkapi fitur keamanan untuk mengunci absensi agar mahasiswa tidak bisa mengisi di luar jam kuliah.
 
-Sistem Informasi Absensi Siswa adalah aplikasi berbasis web yang dirancang untuk mempermudah pengelolaan kehadiran siswa di sekolah. Dengan antarmuka yang intuitif dan fitur lengkap, aplikasi ini memungkinkan admin dan siswa untuk mengelola dan memantau absensi secara efisien.
+## Prasyarat
 
-## ✨ Demo
+Sebelum memulai, pastikan laptop kalian sudah terinstal:
+- XAMPP (dengan Apache dan MySQL)
+- Git
+- VSCode (opsional, untuk edit kode)
+- Browser (Chrome/Edge/Firefox)
 
-Aplikasi demo dapat diakses di:
+## Panduan Instalasi
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi di laptop kalian.
 
--   Portal Admin: [web-absensi.wuaze.com/admin](https://web-absensi.wuaze.com/admin/)
--   Portal Siswa: [web-absensi.wuaze.com/siswa](https://web-absensi.wuaze.com/siswa/)
+### 1. Clone Repositori
+### 2. Pindahkan ke Folder XAMPP
+Setelah proses clone selesai, pindahkan folder k27 ke dalam folder htdocs di direktori XAMPP kalian. Biasanya letaknya di C:\xampp\htdocs.
 
-**Kredensial Login Admin:**
+### 3. Setup Database
+1. Nyalakan Apache dan MySQL di XAMPP Control Panel.
+2. Buka browser dan akses localhost/phpmyadmin.
+3. Buat database baru dengan nama absensi_siswa.
+4. Klik database tersebut, lalu masuk ke tab Import.
+5. Pilih file database.sql yang ada di dalam folder k27/database/.
+6. Klik tombol Import atau Go dan tunggu sampai selesai.
 
--   Username: `admin`
--   Password: `admin123`
+### 4. Konfigurasi Koneksi
+Buka folder k27/config/ di VSCode, lalu buka file database.php.
+Pastikan pengaturan host, username, password, dan nama database sudah sesuai dengan yang ada di phpMyAdmin kalian. Biasanya username-nya root dan password-nya kosong.
 
-**Kredensial Login Siswa:**
 
--   NIS: `2024002`
--   Password: `siswa_2024002`
+### 5. Jalankan Aplikasi
+Buka browser dan ketik alamat ini:
+localhost/k27/admin/
 
-## 🚀 Fitur
+Login sebagai Admin:
+Username: admin
+Password: admin123
 
--   🔐 Sistem autentikasi yang aman untuk admin dan siswa
--   📝 Pengelolaan data absensi harian (hadir, sakit, izin, terlambat, alpha)
--   👨‍🎓 Manajemen data siswa berdasarkan kelas dan jurusan
--   ✅ Siswa dapat melakukan pengajuan absensi dengan bukti pendukung
--   ⚠️ Admin dapat menyetujui atau menolak pengajuan absensi
--   📊 Laporan absensi dengan berbagai filter (tanggal, kelas, jurusan)
--   📱 Desain responsif untuk berbagai ukuran perangkat
--   🔄 Log aktivitas untuk melacak tindakan pengguna dalam sistem
--   👤 Manajemen profil pengguna termasuk foto profil
+Login sebagai Mahasiswa:
+Buka alamat ini:
+localhost/k27/siswa/
 
-## 🛠️ Teknologi yang Digunakan
+Gunakan akun contoh mahasiswa di bawah ini untuk mencoba masuk:
+NIM: M0403241133
+Password: siswa_M0403241133
 
--   **Front-end**: HTML5, CSS3, JavaScript, Bootstrap 5
--   **Back-end**: PHP 8.1+
--   **Database**: MySQL 8.0
--   **Library**: DOMPDF untuk generasi laporan PDF
--   **Framework CSS**: Font Awesome untuk ikon
--   **Koneksi Database**: MySQLi untuk pengelolaan database
+## Alur Kerja Git untuk Kelompok
+Karena kita bekerja secara berkelompok, kita harus rajin melakukan pull dan push agar kode tidak bentrok.
 
-## 📋 Persyaratan Sistem
+### Sebelum Mulai Ngoding
+Selalu tarik kode terbaru dari GitHub agar kalian mendapatkan update terakhir dari teman kalian.
+git pull origin main
 
--   PHP 8.0 atau lebih tinggi
--   MySQL 8.0 atau lebih tinggi
--   Web server (Apache/Nginx)
--   Ekstensi PHP: MySQLi, GD, FileInfo
 
-## 📥 Instalasi
+### Setelah Selesai Ngoding
+Simpan semua perubahan yang kalian lakukan.
+git add .
+git commit -m "Tulis pesan perubahan kalian di sini"
+git push origin main
 
-1. Clone repositori ini:
+## Fitur Utama Saat Ini
 
-    ```bash
-    git clone https://github.com/faiz-hidayat/Web-Absensi.git
-    ```
+### Admin
+-Bisa membuka dan menutup absensi untuk mencegah mahasiswa absen di luar jam kuliah.
+-Bisa mengisi kehadiran (Hadir, Alpha, Izin, Sakit) secara manual.
+-Bisa mengatur tanggal dan metode perkuliahan (Luring, Daring, Asynchronous).
+-Bisa mengunduh laporan kehadiran dalam bentuk PDF dan Excel.
+-Melihat rekap kehadiran seluruh mahasiswa dalam bentuk lingkaran status.
+-Bisa mengedit data kehadiran kapan saja, meskipun absensi sudah dikunci.
 
-2. Pindah ke direktori proyek:
+### Mahasiswa
+-Bisa melihat daftar absensi yang sedang dibuka oleh admin.
+-Hanya bisa mengisi status Hadir.
+-Bisa melihat riwayat kehadiran diri sendiri.
+-Bisa mengubah profil dan password.
 
-    ```bash
-    cd Web-Absensi
-    ```
 
-3. Buat database baru:
-
-    ```sql
-    CREATE DATABASE absensi_siswa;
-    ```
-
-4. Import struktur database dari file `database/database.sql`
-
-5. Konfigurasi koneksi database:
-
-    - Sesuaikan kredensial database pada file `config/database.php`
-
-6. Buat folder `uploads` dengan subfolder yang diperlukan:
-
-    ```bash
-    mkdir -p uploads/admin uploads/siswa
-    chmod 755 uploads
-    ```
-
-7. Akses aplikasi melalui browser:
-    ```
-    http://localhost/Web-Absensi
-    ```
-
-## 💻 Cara Penggunaan
-
-### Login Admin
-
--   Gunakan username `admin` dan password `admin123` untuk masuk ke panel admin
--   Kelola data siswa, absensi, dan laporan melalui menu yang tersedia
-
-### Login Siswa
-
--   Siswa menggunakan NIS dan password yang telah diberikan untuk login
--   Siswa dapat mengajukan absensi dan melihat riwayat absensi mereka
-
-### Pengelolaan Absensi
-
-1. **Pengajuan Absensi oleh Siswa**:
-
-    - Siswa login ke portal siswa
-    - Pilih status absensi (Hadir, Sakit, Izin)
-    - Isi keterangan jika diperlukan
-    - Upload bukti pendukung (untuk sakit atau izin)
-    - Kirim pengajuan untuk ditinjau oleh admin
-
-2. **Persetujuan Absensi oleh Admin**:
-
-    - Admin menerima notifikasi pengajuan absensi baru
-    - Admin dapat melihat detail pengajuan termasuk bukti
-    - Admin menyetujui atau menolak pengajuan tersebut
-
-3. **Laporan Absensi**:
-
-    - Admin dapat melihat laporan absensi siswa
-    - Filter berdasarkan tanggal, kelas, jurusan, atau status absensi
-    - Ekspor laporan dalam format PDF
-
-4. **Manajemen Siswa**:
-
-    - Admin dapat menambah, mengedit, dan menghapus data siswa
-    - Mengatur kelas dan jurusan siswa
-    - Mengatur akses login siswa
-
-5. **Log Aktivitas**:
-    - Admin dapat melihat log aktivitas sistem
-    - Memantau tindakan yang dilakukan oleh admin dan siswa
-
-## 📸 Screenshot
-
-![Dashboard Admin](/screenshots/dashboard-admin.png)
-![Dashboard Siswa](/screenshots/dashboard-siswa.png)
-
-## 👨‍💻 Pengembang
-
-Dikembangkan oleh [Muhammad Faiz Hidayat](https://github.com/faiz-hidayat)
-
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+## Catatan Penting
+-Pastikan XAMPP (Apache dan MySQL) selalu menyala saat kalian sedang mengerjakan proyek ini.
+-Jangan lupa melakukan git pull setiap kali mau mulai ngoding, dan git push setelah selesai ngoding.
+-Jangan pernah meng-commit file config/database.php yang berisi password asli server production. Gunakan konfigurasi lokal saja.
