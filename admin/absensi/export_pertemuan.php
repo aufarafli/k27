@@ -20,12 +20,12 @@ $info = $stmt_info->fetch(PDO::FETCH_ASSOC);
 $tanggal_pertemuan = $info && $info['tanggal'] ? date('d F Y', strtotime($info['tanggal'])) : '-';
 $metode_pertemuan = $info && $info['metode'] ? $info['metode'] : '-';
 
-// Ambil data absensi mahasiswa
+// PERBAIKAN: Mengubah ORDER BY dari nama_lengkap menjadi nis
 $sql = "SELECT s.nis, s.nama_lengkap, ap.status 
         FROM absensi_pertemuan ap
         JOIN siswa s ON ap.siswa_id = s.id
         WHERE ap.pertemuan_ke = :pertemuan_ke
-        ORDER BY s.nama_lengkap ASC";
+        ORDER BY s.nis ASC";
 $stmt = $conn->prepare($sql);
 $stmt->execute(['pertemuan_ke' => $pertemuan_ke]);
 $data_absensi = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,13 +38,15 @@ if ($format === 'excel') {
 
     echo '<table border="1">';
     echo '<thead>';
-    echo '<tr><th colspan="3" style="text-align:center; font-weight:bold;">Daftar Kehadiran Pertemuan ' . $pertemuan_ke . '</th></tr>';
-    echo '<tr><th colspan="3" style="text-align:center;">Tanggal: ' . $tanggal_pertemuan . ' | Metode: ' . $metode_pertemuan . '</th></tr>';
-    echo '<tr style="background-color:#f2f2f2;"><th>NIS/NIM</th><th>Nama Mahasiswa</th><th>Status Kehadiran</th></tr>';
+    echo '<tr><th colspan="4" style="text-align:center; font-weight:bold;">Daftar Kehadiran Pertemuan ' . $pertemuan_ke . '</th></tr>';
+    echo '<tr><th colspan="4" style="text-align:center;">Tanggal: ' . $tanggal_pertemuan . ' | Metode: ' . $metode_pertemuan . '</th></tr>';
+    echo '<tr style="background-color:#f2f2f2;"><th>No</th><th>NIS/NIM</th><th>Nama Mahasiswa</th><th>Status Kehadiran</th></tr>';
     echo '</thead>';
     echo '<tbody>';
+    $no = 1;
     foreach ($data_absensi as $row) {
         echo '<tr>';
+        echo '<td>' . $no++ . '</td>';
         echo '<td>' . htmlspecialchars($row['nis']) . '</td>';
         echo '<td>' . htmlspecialchars($row['nama_lengkap']) . '</td>';
         echo '<td>' . htmlspecialchars($row['status']) . '</td>';
@@ -57,7 +59,6 @@ if ($format === 'excel') {
 
 // --- PROSES EXPORT PDF ---
 if ($format === 'pdf') {
-    // PERBAIKAN: Menambahkan desain dan memunculkan variabel tanggal & metode
     $html = '
     <!DOCTYPE html>
     <html>
@@ -73,6 +74,7 @@ if ($format === 'pdf') {
             .status-hadir { color: green; font-weight: bold; }
             .status-alpha { color: red; font-weight: bold; }
             .status-izin { color: orange; font-weight: bold; }
+            .status-sakit { color: blue; font-weight: bold; }
         </style>
     </head>
     <body>
@@ -96,7 +98,8 @@ if ($format === 'pdf') {
         $status_class = '';
         if ($row['status'] == 'Hadir') $status_class = 'status-hadir';
         if ($row['status'] == 'Alpha') $status_class = 'status-alpha';
-        if ($row['status'] == 'Izin/Sakit') $status_class = 'status-izin';
+        if ($row['status'] == 'Izin') $status_class = 'status-izin';
+        if ($row['status'] == 'Sakit') $status_class = 'status-sakit';
 
         $html .= '
                 <tr>
